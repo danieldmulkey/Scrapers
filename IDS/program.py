@@ -59,7 +59,10 @@ def write_to_csv(header, cameras):
 
             print('Saving cameras to CSV...')
             for c in cameras:
-                writer.writerow([c[k] for k in header])
+                try:
+                    writer.writerow([c[k] for k in header])
+                except KeyError as e:
+                    writer.writerow([f'Error {e} occurred'])
             print('Done!')
     except PermissionError as e:
         print(f'Error occurred, is .CSV still open? {e.message}')
